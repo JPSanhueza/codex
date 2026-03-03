@@ -30,10 +30,72 @@
                 width: min(920px, 100%);
                 border: 1px solid rgba(148, 163, 184, 0.25);
                 border-radius: 24px;
-                padding: clamp(1.75rem, 4vw, 3rem);
+                padding: clamp(1.25rem, 3vw, 1.6rem) clamp(1.75rem, 4vw, 3rem) clamp(1.75rem, 4vw, 3rem);
                 background: linear-gradient(145deg, rgba(15, 23, 42, 0.88), rgba(30, 41, 59, 0.65));
                 backdrop-filter: blur(8px);
                 box-shadow: 0 30px 90px rgba(2, 6, 23, 0.55);
+            }
+
+            .guest-nav {
+                margin-bottom: 1.5rem;
+            }
+
+            .guest-nav-row {
+                display: flex;
+                align-items: center;
+                justify-content: space-between;
+                gap: 1rem;
+            }
+
+            .guest-nav-brand {
+                color: #f8fafc;
+                text-decoration: none;
+                font-weight: 700;
+                letter-spacing: .03em;
+            }
+
+            .guest-nav-toggle {
+                display: none;
+                align-items: center;
+                justify-content: center;
+                width: 2.5rem;
+                height: 2.5rem;
+                border: 1px solid rgba(148, 163, 184, 0.35);
+                border-radius: 10px;
+                background: rgba(30, 41, 59, 0.45);
+                color: #e2e8f0;
+                font-size: 1.2rem;
+                cursor: pointer;
+            }
+
+            .guest-nav-links {
+                margin: 0;
+                padding: 0;
+                list-style: none;
+                display: flex;
+                gap: .5rem;
+            }
+
+            .guest-nav-links a {
+                display: inline-block;
+                padding: .45rem .75rem;
+                border-radius: 999px;
+                color: #cbd5e1;
+                text-decoration: none;
+                font-size: .95rem;
+                border: 1px solid transparent;
+                transition: background-color .2s ease, border-color .2s ease, color .2s ease;
+            }
+
+            .guest-nav-links a:hover {
+                color: #f8fafc;
+                border-color: rgba(56, 189, 248, 0.5);
+                background: rgba(14, 116, 144, 0.2);
+            }
+
+            .guest-content {
+                border-top: 1px solid rgba(148, 163, 184, 0.2);
+                padding-top: 1.5rem;
             }
 
             .pill {
@@ -108,6 +170,28 @@
             }
 
             @media (max-width: 640px) {
+                .guest-nav-toggle {
+                    display: inline-flex;
+                }
+
+                .guest-nav-links {
+                    width: 100%;
+                    margin-top: .85rem;
+                    flex-direction: column;
+                    gap: .35rem;
+                    display: none;
+                }
+
+                .guest-nav-links.is-open {
+                    display: flex;
+                }
+
+                .guest-nav-links a {
+                    width: 100%;
+                    border-radius: 10px;
+                    padding: .6rem .75rem;
+                }
+
                 .timer {
                     grid-template-columns: repeat(2, minmax(120px, 1fr));
                 }
@@ -115,8 +199,37 @@
         </style>
     </head>
     <body>
-        <main class="card">
-            {{ $slot }}
-        </main>
+        <div class="card">
+            <nav class="guest-nav" aria-label="Navegación principal">
+                <div class="guest-nav-row">
+                    <a class="guest-nav-brand" href="#">Codari</a>
+                    <button class="guest-nav-toggle" type="button" aria-expanded="false" aria-controls="guest-nav-links" data-nav-toggle>
+                        ☰
+                    </button>
+                    <ul class="guest-nav-links" id="guest-nav-links" data-nav-menu>
+                        <li><a href="#">Inicio</a></li>
+                        <li><a href="#">Sobre Nosotros</a></li>
+                        <li><a href="#">Servicios</a></li>
+                        <li><a href="#">Contacto</a></li>
+                    </ul>
+                </div>
+            </nav>
+
+            <main class="guest-content">
+                {{ $slot }}
+            </main>
+        </div>
+
+        <script>
+            const navToggle = document.querySelector('[data-nav-toggle]');
+            const navMenu = document.querySelector('[data-nav-menu]');
+
+            if (navToggle && navMenu) {
+                navToggle.addEventListener('click', () => {
+                    const isOpen = navMenu.classList.toggle('is-open');
+                    navToggle.setAttribute('aria-expanded', isOpen ? 'true' : 'false');
+                });
+            }
+        </script>
     </body>
 </html>
