@@ -147,8 +147,14 @@
         </main>
 
         <script>
-            const countdownStart = new Date();
-            const launchDate = new Date(countdownStart.getTime() + 7 * 24 * 60 * 60 * 1000);
+            const COUNTDOWN_KEY = 'codari_launch_date';
+            const now = Date.now();
+            const storedDate = Number(localStorage.getItem(COUNTDOWN_KEY));
+            const launchTimestamp = Number.isFinite(storedDate) && storedDate > now
+                ? storedDate
+                : now + 7 * 24 * 60 * 60 * 1000;
+
+            localStorage.setItem(COUNTDOWN_KEY, String(launchTimestamp));
 
             const parts = {
                 days: document.getElementById('days'),
@@ -160,8 +166,7 @@
             const pad = (value) => value.toString().padStart(2, '0');
 
             const render = () => {
-                const now = new Date();
-                const distance = Math.max(0, launchDate - now);
+                const distance = Math.max(0, launchTimestamp - Date.now());
 
                 const days = Math.floor(distance / (1000 * 60 * 60 * 24));
                 const hours = Math.floor((distance / (1000 * 60 * 60)) % 24);
