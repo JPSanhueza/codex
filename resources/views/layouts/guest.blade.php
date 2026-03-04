@@ -169,6 +169,39 @@
                 font-weight: 700;
             }
 
+
+            .imagen-hero {
+                width: 100%;
+            }
+
+            .imagen-hero picture,
+            .imagen-hero img {
+                display: block;
+                width: 100%;
+            }
+
+            .imagen-hero img {
+                height: 70vh;
+                min-height: 320px;
+                max-height: 780px;
+                object-fit: cover;
+                border-radius: 16px;
+                border: 1px solid rgba(148, 163, 184, 0.24);
+                background: rgba(15, 23, 42, 0.45);
+            }
+
+            .imagen-hero-empty {
+                height: 70vh;
+                min-height: 320px;
+                max-height: 780px;
+                display: grid;
+                place-items: center;
+                text-align: center;
+                border-radius: 16px;
+                border: 1px dashed rgba(148, 163, 184, 0.5);
+                color: #94a3b8;
+                padding: 1rem;
+            }
             @media (max-width: 640px) {
                 .guest-nav-toggle {
                     display: inline-flex;
