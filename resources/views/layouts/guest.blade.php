@@ -6,6 +6,8 @@
         <title>{{ $title ?? __('Sitio en construcción').' - '.config('app.name', 'Laravel') }}</title>
         <link rel="icon" href="/favicon.ico" sizes="any">
         <link rel="icon" href="/favicon.svg" type="image/svg+xml">
+        @vite(['resources/css/app.css', 'resources/js/app.js'])
+        @livewireStyles
         <style>
             :root {
                 color-scheme: dark;
@@ -264,5 +266,6 @@
                 });
             }
         </script>
+        @livewireScripts
     </body>
 </html>
