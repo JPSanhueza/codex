@@ -27,13 +27,13 @@
                     })->filter()->values();
                 @endphp
 
-                <article class="rounded-2xl border border-slate-300/30 bg-white/5 p-6 text-slate-100 shadow-sm">
-                    <div class="mx-auto mb-4 flex h-36 w-36 items-center justify-center overflow-hidden rounded-full border border-slate-300/40 bg-slate-300/20">
+                <article class="h-full overflow-hidden rounded-xl border border-slate-300/30 bg-white/5 p-6 text-slate-100 shadow-sm break-words">
+                    <div class="mx-auto mb-4 block h-28 w-28 max-w-full overflow-hidden rounded-full border border-slate-300/40 bg-slate-300/20">
                         @if ($profile->photo_path)
                             <img
                                 src="{{ \Illuminate\Support\Facades\Storage::url($profile->photo_path) }}"
                                 alt="{{ $profile->name }}"
-                                class="h-full w-full object-cover"
+                                class="block h-full w-full max-w-full object-cover"
                                 loading="lazy"
                             >
                         @else

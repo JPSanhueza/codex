@@ -39,6 +39,12 @@ class ProfileCardResource extends Resource
             FileUpload::make('photo_path')
                 ->label('Foto')
                 ->image()
+                ->acceptedFileTypes(['image/jpeg', 'image/png', 'image/webp'])
+                ->maxSize(1024)
+                ->validationMessages([
+                    'max' => 'La imagen no puede superar 1 MB.',
+                    'mimetypes' => 'Solo se permiten imágenes JPG, PNG o WEBP.',
+                ])
                 ->disk('public')
                 ->directory('profile-cards')
                 ->imageEditor()
